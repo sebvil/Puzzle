@@ -4,7 +4,7 @@ block_cipher = None
 
 
 a = Analysis(['puzzle.py'],
-             pathex=['/home/sebvil1/Desktop/Puzzle'],
+             pathex=['/home/pi/Puzzle'],
              binaries=[],
              datas=[],
              hiddenimports=[],
