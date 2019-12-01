@@ -16,13 +16,13 @@ if __name__ == "__main__":
     root.geometry("640x460+0-20")
 
     for i in range(1,6):
-        msg = open("puzzle%i.txt" % i).read()
+        msg = open("~/Puzzle/puzzle%i.txt" % i).read()
         page = TextPage(text= msg, title= "Puzzle %i" % i, master=root)
         page.mainloop()
         page1 = AnswerPage(answer=answers[i-1], title = "Puzzle %i" % i, master=root)
         page1.mainloop()
 
-    msg = open("puzzle6.txt").read()
+    msg = open("~/Puzzle/puzzle6.txt").read()
     page = TextPage(text= msg, title= ("Puzzle %i" % (6)), master=root)
     page.mainloop()
     page1 = FinalPage(answer=answers[5], title = ("Puzzle %i" % (6)), master=root)
