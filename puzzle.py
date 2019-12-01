@@ -1,6 +1,7 @@
 import tkinter as tk
 from answer_page import AnswerPage
 from text_page import TextPage
+from final_page import FinalPage
 
 
 
@@ -13,10 +14,18 @@ if __name__ == "__main__":
                "Stardust"]
     root = tk.Tk()
     root.geometry("640x460+0-20")
-    msg = "hbecipeub\neuiuebdu\nebbcieub"
 
-    for i in range(6):
-        page = TextPage(text= msg, title= ("Puzzle %i" % (i+1)), master=root)
+    for i in range(1,6):
+        msg = open("puzzle%i.txt" % i).read()
+        page = TextPage(text= msg, title= "Puzzle %i" % i, master=root)
         page.mainloop()
-        page1 = AnswerPage(answer=answers[i], title = ("Puzzle %i" % (i+1)), master=root)
+        page1 = AnswerPage(answer=answers[i-1], title = "Puzzle %i" % i, master=root)
         page1.mainloop()
+
+    msg = open("puzzle6.txt").read()
+    page = TextPage(text= msg, title= ("Puzzle %i" % (6)), master=root)
+    page.mainloop()
+    page1 = FinalPage(answer=answers[5], title = ("Puzzle %i" % (6)), master=root)
+    page1.mainloop()
+    page = TextPage(text="You have solved the puzzle", title='Done', final=True, master=root)
+    page.mainloop()

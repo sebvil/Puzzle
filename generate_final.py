@@ -18,16 +18,18 @@ def generate_letter_button(letter, r, c, offset):
         self.%s["text"] = "%s"
         self.%s["command"] = self.print_%s
         self.widgets.append(self.%s)
+        self.keys["%s"] = self.%s
         self.%s.place(x=%i, y=%i, width=%i, height=%i)
-    """ % (s, s, letter, s, s, s, s, x, y, BUTTON_SIZE, BUTTON_SIZE)
+    """ % (s, s, letter, s, s, s, letter, s, s, x, y, BUTTON_SIZE, BUTTON_SIZE)
     return button
 
 def generate_letter_function(letter):
     s = letter.lower()
     letter_function = """
     def print_%s(self):
-        self.entry.insert(tk.INSERT, "%s")
-        self.wrong.place(x = 200, y =-50, height=50, width=240)
+        if (len(self.entry.get()) < len(self.answer)):
+            self.entry.insert(tk.INSERT, "%s")
+            self.wrong.place(x = 200, y =-50, height=50, width=240)
 
     """ % (s, letter)
     return letter_function
@@ -41,12 +43,13 @@ BUTTON_SIZE = 40
 WIDTH = 200
 HEIGHT = 35
 
-class AnswerPage(tk.Frame):
+class FinalPage(tk.Frame):
     def __init__(self, answer, title, master=None):
         super().__init__(master)
         self.master = master
         self.pack()
         self.widgets = []
+        self.keys = {}
         self.create_widgets()
         self.answer = answer.upper()
         self.master.title(title)
@@ -110,11 +113,30 @@ s += """
             self.destroy()
             self.quit()
         else:
-            self.wrong.place(x = DIM_X / 2 - WIDTH / 2,
-                             y = DIM_Y / 12 * 2,
-                             height= HEIGHT,
-                             width= WIDTH)
-            print(self.answer)
+            for i in range(len(attempt)):
+                if attempt[i] != self.answer[i]:
+                    if i == 0:
+                        color = self.master["background"]
+                        self.master["background"] = "red"
+                        self.master.after(1000, self.change_color, self.master, color)
+                        return
+                    else:
+                        letter = chr(i + ord("A") - 1)
+                        widget = self.keys[letter]
+                        color = widget["background"]
+                        widget["background"] = "green"
+                        print(2)
+                        widget.after(1000, self.change_color, widget, color)
+                        return
+                if i == len(attempt) - 1:
+                    letter = chr(i + ord("A"))
+                    widget = self.keys[letter]
+                    color = widget["background"]
+                    widget["background"] = "green"
+                    print(2)
+                    widget.after(1000, self.change_color, widget, color)
+                    return
+            print(1)
 
     def delete(self):
         self.wrong.place(x = DIM_X / 2 - WIDTH / 2,
@@ -128,10 +150,11 @@ s += """
         for w in self.widgets:
             w.destroy()
 
-
+    def change_color(self, widget, color):
+        widget["background"] = color
 """
 
 
-f = open("answer_page.py", 'w')
+f = open("final_page.py", 'w')
 f.write(s)
 f.close()
