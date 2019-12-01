@@ -5,7 +5,7 @@ letters = [
 ]
 def generate_letter_button(letter, r, c, offset):
     size = 30
-    y = size * r + 200
+    y = size * r + 150
     x = size * c + 100 + offset
     s = letter.lower()
     button = """
@@ -27,7 +27,7 @@ def generate_letter_function(letter):
     return letter_function
 
 size = 30
-y = 200 + size
+y = 150 + size
 x = size * len(letters[1]) + 100 + 12
 s =  """
 import tkinter as tk

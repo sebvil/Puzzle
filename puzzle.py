@@ -12,7 +12,7 @@ if __name__ == "__main__":
                "Atlantic",
                "Stardust"]
     root = tk.Tk()
-    root.geometry("480x320+0+0")
+    root.geometry("480x280+0+0")
 
     for i in range(6):
         page = AnswerPage(answer=answers[i], master=root)
