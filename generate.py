@@ -4,9 +4,9 @@ letters = [
     ['Z', 'X', 'C', 'V', 'B', 'N', 'M']
 ]
 def generate_letter_button(letter, r, c, offset):
-    size = 30
-    y = size * r + 150
-    x = size * c + 100 + offset
+    size = 40
+    y = size * r + 200
+    x = size * c + 120 + offset
     s = letter.lower()
     button = """
         self.%s = tk.Button(self.master)
@@ -22,14 +22,14 @@ def generate_letter_function(letter):
     letter_function = """
     def print_%s(self):
         self.entry.insert(tk.INSERT, "%s")
-        self.wrong.place(x = 120, y =-50, height=50, width=240)
+        self.wrong.place(x = 200, y =-50, height=50, width=240)
 
     """ % (s, letter)
     return letter_function
 
-size = 30
-y = 150 + size
-x = size * len(letters[1]) + 100 + 12
+size = 40
+y = 200 + size
+x = size * len(letters[1]) + 120 + 12
 s =  """
 import tkinter as tk
 
@@ -46,17 +46,17 @@ class AnswerPage(tk.Frame):
     def create_widgets(self):
         self.entry = tk.Entry(self.master)
         self.widgets.append(self.entry)
-        self.entry.place(x = 140, y = 50, width=200, height=30)
+        self.entry.place(x = 220, y = 100, width=200, height=30)
 
         self.wrong = tk.Label(self.master, text="Wrong Answer")
         self.widgets.append(self.wrong)
-        self.wrong.place(x = 120, y = -50, height=50, width=240)
+        self.wrong.place(x = 200, y = -50, height=50, width=240)
 
         self.enter = tk.Button(self.master)
         self.enter["text"] = "SUBMIT"
         self.enter["command"] = self.submit
         self.widgets.append(self.enter)
-        self.enter.place(x=140, y=100, width=200, height=30)
+        self.enter.place(x=220, y=150, width=200, height=30)
 
         self.backspace = tk.Button(self.master)
         self.backspace["text"] = "DELETE"
