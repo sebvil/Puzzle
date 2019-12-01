@@ -330,7 +330,7 @@ class AnswerPage(tk.Frame):
             print(1)
 
     def delete(self):
-        self.wrong.place(x = 120, y = 20, height=25, width=240)
+        self.wrong.place(x = 120, y = -50, height=25, width=240)
         index = self.entry.index(tk.INSERT)
         self.entry.delete(index -1)
 
