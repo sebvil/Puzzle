@@ -12,7 +12,7 @@ if __name__ == "__main__":
                "Atlantic",
                "Stardust"]
     root = tk.Tk()
-    root.geometry("480x280+0+0")
+    root.geometry("700x400+0+0")
     msg = "hbecipeub\neuiuebdu\nebbcieub"
 
     for i in range(6):
