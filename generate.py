@@ -42,7 +42,7 @@ class AnswerPage(tk.Frame):
 
     def create_widgets(self):
         self.entry = tk.Entry(self.master)
-        self.entry.place(x = 140, y = 100, width=200, height=30)
+        self.entry.place(x = 140, y = 50, width=200, height=30)
 
         self.wrong = tk.Label(self.master, text="Wrong Answer")
         self.wrong.place(x = 120, y = -50, height=50, width=240)
@@ -50,7 +50,7 @@ class AnswerPage(tk.Frame):
         self.enter = tk.Button(self.master)
         self.enter["text"] = "SUBMIT"
         self.enter["command"] = self.submit
-        self.enter.place(x=140, y=150, width=200, height=30)
+        self.enter.place(x=140, y=100, width=200, height=30)
 
         self.backspace = tk.Button(self.master)
         self.backspace["text"] = "DELETE"
@@ -80,7 +80,7 @@ s += """
             print("CORRECT")
             self.quit()
         else:
-            self.wrong.place(x = 120, y = 50, height=50, width=240)
+            self.wrong.place(x = 120, y = 20, height=25, width=240)
             print(1)
 
     def delete(self):
