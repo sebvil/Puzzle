@@ -12,8 +12,9 @@ def generate_letter_button(letter, r, c, offset):
         self.%s = tk.Button(self.master)
         self.%s["text"] = "%s"
         self.%s["command"] = self.print_%s
+        self.widgets.append(self.%s)
         self.%s.place(x=%i, y=%i, width=%i, height=%i)
-    """ % (s, s, letter, s, s, s, x, y, size, size)
+    """ % (s, s, letter, s, s, s, s, x, y, size, size)
     return button
 
 def generate_letter_function(letter):
@@ -33,28 +34,34 @@ s =  """
 import tkinter as tk
 
 class AnswerPage(tk.Frame):
-    def __init__(self, answer, master=None):
+    def __init__(self, answer, title, master=None):
         super().__init__(master)
         self.master = master
         self.pack()
+        self.widgets = []
         self.create_widgets()
         self.answer = answer.upper()
+        self.master.title(title)
 
     def create_widgets(self):
         self.entry = tk.Entry(self.master)
+        self.widgets.append(self.entry)
         self.entry.place(x = 140, y = 50, width=200, height=30)
 
         self.wrong = tk.Label(self.master, text="Wrong Answer")
+        self.widgets.append(self.wrong)
         self.wrong.place(x = 120, y = -50, height=50, width=240)
 
         self.enter = tk.Button(self.master)
         self.enter["text"] = "SUBMIT"
         self.enter["command"] = self.submit
+        self.widgets.append(self.enter)
         self.enter.place(x=140, y=100, width=200, height=30)
 
         self.backspace = tk.Button(self.master)
         self.backspace["text"] = "DELETE"
         self.backspace["command"] = self.delete
+        self.widgets.append(self.backspace)
         self.backspace.place(x=%i, y=%i, width=%i, height=%i)
 """ % (x, y, size * 2, size)
 row = 0
@@ -78,14 +85,21 @@ s += """
         attempt = self.entry.get()
         if attempt == self.answer:
             print("CORRECT")
+            self.destroy_widgets()
+            self.destroy()
             self.quit()
         else:
             self.wrong.place(x = 120, y = 20, height=25, width=240)
             print(1)
 
     def delete(self):
+        self.wrong.place(x = 120, y = 20, height=25, width=240)
         index = self.entry.index(tk.INSERT)
         self.entry.delete(index -1)
+
+    def destroy_widgets(self):
+        for w in self.widgets:
+            w.destroy()
 
 
 """

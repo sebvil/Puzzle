@@ -13,7 +13,10 @@ if __name__ == "__main__":
                "Stardust"]
     root = tk.Tk()
     root.geometry("480x280+0+0")
+    msg = "hbecipeub\neuiuebdu\nebbcieub"
 
     for i in range(6):
-        page = AnswerPage(answer=answers[i], master=root)
+        page = TextPage(text= msg, title= ("Puzzle %i" % (i+1)), master=root)
         page.mainloop()
+        page1 = AnswerPage(answer=answers[i], title = ("Puzzle %i" % (i+1)), master=root)
+        page1.mainloop()
