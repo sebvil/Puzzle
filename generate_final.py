@@ -17,6 +17,7 @@ def generate_letter_button(letter, r, c, offset):
         self.%s = tk.Button(self.master)
         self.%s["text"] = "%s"
         self.%s["command"] = self.print_%s
+        self.%s['font'] = FONT
         self.widgets.append(self.%s)
         self.keys["%s"] = self.%s
         self.%s.place(x=%i, y=%i, width=%i, height=%i)
@@ -42,6 +43,7 @@ DIM_Y = 460
 BUTTON_SIZE = 40
 WIDTH = 200
 HEIGHT = 35
+FONT = ("Arial", 20)
 
 class FinalPage(tk.Frame):
     def __init__(self, answer, title, master=None):
@@ -63,6 +65,7 @@ class FinalPage(tk.Frame):
                          y = y_pos(3),
                          width = WIDTH,
                          height = HEIGHT)
+        self.entry['font'] = FONT
 
         self.wrong = tk.Label(self.master, text="Wrong Answer")
         self.widgets.append(self.wrong)
@@ -70,6 +73,7 @@ class FinalPage(tk.Frame):
                          y = -50,
                          height = HEIGHT,
                          width = WIDTH)
+        self.wrong["font"] = FONT
 
         self.enter = tk.Button(self.master)
         self.enter["text"] = "SUBMIT"
@@ -79,10 +83,12 @@ class FinalPage(tk.Frame):
                          y = y_pos(4),
                          width = WIDTH,
                          height = HEIGHT)
+        self.enter['font'] = FONT
 
         self.backspace = tk.Button(self.master)
         self.backspace["text"] = "DELETE"
         self.backspace["command"] = self.delete
+        self.backspace['font'] = FONT
         x_pos =  (DIM_X / 2 -
                  BUTTON_SIZE * %i / 2 +
                  BUTTON_SIZE * %i +

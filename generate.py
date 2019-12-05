@@ -17,9 +17,10 @@ def generate_letter_button(letter, r, c, offset):
         self.%s = tk.Button(self.master)
         self.%s["text"] = "%s"
         self.%s["command"] = self.print_%s
+        self.%s["font"] = FONT
         self.widgets.append(self.%s)
         self.%s.place(x=%i, y=%i, width=%i, height=%i)
-    """ % (s, s, letter, s, s, s, s, x, y, BUTTON_SIZE, BUTTON_SIZE)
+    """ % (s, s, letter, s, s, s, s, s, x, y, BUTTON_SIZE, BUTTON_SIZE)
     return button
 
 def generate_letter_function(letter):
@@ -40,6 +41,7 @@ DIM_Y = 460
 BUTTON_SIZE = 40
 WIDTH = 200
 HEIGHT = 35
+FONT = ("Arial", 20)
 
 class AnswerPage(tk.Frame):
     def __init__(self, answer, title, master=None):
@@ -47,9 +49,14 @@ class AnswerPage(tk.Frame):
         self.master = master
         self.pack()
         self.widgets = []
-        self.create_widgets()
         self.answer = answer.upper()
         self.master.title(title)
+
+    def set_previous(self, previous):
+        self.previous = previous
+
+    def set_next(self, next):
+        self.next = next
 
     def create_widgets(self):
         self.entry = tk.Entry(self.master)
@@ -60,13 +67,18 @@ class AnswerPage(tk.Frame):
                          y = y_pos(3),
                          width = WIDTH,
                          height = HEIGHT)
+        self.entry['font'] = FONT
 
-        self.wrong = tk.Label(self.master, text="Wrong Answer")
+
+        self.wrong = tk.Label(self.master,
+                              text="Wrong Answer",
+                              font=FONT)
         self.widgets.append(self.wrong)
         self.wrong.place(x = x_pos,
                          y = -50,
                          height = HEIGHT,
                          width = WIDTH)
+
 
         self.enter = tk.Button(self.master)
         self.enter["text"] = "SUBMIT"
@@ -76,10 +88,13 @@ class AnswerPage(tk.Frame):
                          y = y_pos(4),
                          width = WIDTH,
                          height = HEIGHT)
+        self.enter["font"] = FONT
 
         self.backspace = tk.Button(self.master)
         self.backspace["text"] = "DELETE"
         self.backspace["command"] = self.delete
+        self.backspace["font"] = FONT
+
         x_pos =  (DIM_X / 2 -
                  BUTTON_SIZE * %i / 2 +
                  BUTTON_SIZE * %i +
@@ -87,7 +102,14 @@ class AnswerPage(tk.Frame):
         y_pos = BUTTON_SIZE  + DIM_Y / 2
         self.widgets.append(self.backspace)
         self.backspace.place(x = x_pos, y = y_pos, width = %i, height = %i)
-""" % (len(letters[0]), len(letters[1]), BUTTON_SIZE * 2, BUTTON_SIZE)
+
+        self.back = tk.Button(self.master)
+        self.back["text"] = "BACK"
+        self.back["command"] = self.go_back
+        self.back["font"] = FONT
+        self.widgets.append(self.back)
+        self.back.place(x = 20, y = 20, width = BUTTON_SIZE * 3, height = BUTTON_SIZE)
+""" % (len(letters[0]), len(letters[1]), BUTTON_SIZE * 3, BUTTON_SIZE)
 row = 0
 column = 0
 offset = 0
@@ -109,6 +131,8 @@ s += """
             self.destroy_widgets()
             self.destroy()
             self.quit()
+            self.next.create_widgets()
+            self.next.mainloop()
         else:
             self.wrong.place(x = DIM_X / 2 - WIDTH / 2,
                              y = DIM_Y / 12 * 2,
@@ -123,6 +147,13 @@ s += """
                          width = WIDTH)
         index = self.entry.index(tk.INSERT)
         self.entry.delete(index -1)
+
+    def go_back(self):
+        self.destroy_widgets()
+        self.destroy()
+        self.quit()
+        self.previous.create_widgets()
+        self.previous.mainloop()
 
     def destroy_widgets(self):
         for w in self.widgets:
