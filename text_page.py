@@ -29,7 +29,7 @@ class TextPage(tk.Frame):
         self.master.title(self.title)
         print("test")
         self.message = tk.Label(self.master, text=self.text, font=("Arial", 25))
-        self.message.place(x=10,y=10, width = DIM_X - 20,
+        self.message.place(x=20,y=20, width = DIM_X - 20,
                            height = DIM_Y - 3 * BUTTON_SIZE - 10)
 
 

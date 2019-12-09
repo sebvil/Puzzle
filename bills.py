@@ -6,7 +6,7 @@ DIM_Y = 460
 BUTTON_SIZE = 40
 WIDTH = 200
 HEIGHT = 35
-FONT = ("Arial", 20)
+FONT = ("Arial", 17)
 
 class BillsPage(tk.Frame):
     def __init__(self, title, text, master=None):
@@ -28,9 +28,10 @@ class BillsPage(tk.Frame):
 
         self.master.title(self.title)
         print("test")
-        self.message = tk.Label(self.master, text=self.text, font=("Arial", 25))
+        self.message = tk.Label(self.master, text=self.text, font=FONT)
         self.message.place(x=10,y=10, width = DIM_X - 20,
                            height = DIM_Y - 3 * BUTTON_SIZE - 10)
+
 
         self.next_page = tk.Button(self.master)
         self.next_page["text"] = "Next"
