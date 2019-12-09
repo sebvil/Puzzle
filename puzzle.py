@@ -2,6 +2,8 @@ import tkinter as tk
 from answer_page import AnswerPage
 from text_page import TextPage
 from final_page import FinalPage
+from passport import PassportPage
+from bills import BillsPage
 
 
 
@@ -11,34 +13,50 @@ if __name__ == "__main__":
                "Relax",
                "Blast" ,
                "Atlantic",
-               "Stardust"]
+               "Stardust",
+               "Dollar"]
     root = tk.Tk()
     root.geometry("640x460+0-20")
 
-    text_pages = []
-    answer_pages = []
-    for i in range(1,6):
+    pages = []
+    bills_text="\n".join(["NET WORTH\n",
+                   "LADY GAGA	$01,100,000",
+                   "JARED LETO 	$000,011,110",
+                   "BRITNEY SPEARS	$0,001,010,000,011",
+                   "KIM KARDASHIAN	$0,100,000,000,001",
+                   "BERNIE SANDERS	$0,000,001,010,000"])
+
+    for i in range(1,8):
         msg = open("puzzle%i.txt" % i).read()
         print(i)
         page = TextPage(text= msg, title= "Puzzle %i" % i, master=root)
-        page1 = AnswerPage(answer=answers[i-1], title = "Puzzle %i" % i, master=root)
-        page.set_next(page1)
-        page1.set_previous(page)
-        text_pages.append(page)
-        if i != 1:
-            answer_pages[i-2].set_next(page)
-        answer_pages.append(page1)
+        answer_page = AnswerPage(answer=answers[i-1], title = "Puzzle %i" % i, master=root)
 
-    text_pages[0].create_widgets()
-    page.mainloop()
+        pages.append(page)
+        if i == 2:
+            passport = PassportPage(title="passport", master=root)
+            pages.append(passport)
+        if i == 4:
+            bills = BillsPage(title="bills", text=bills_text, master=root)
+            pages.append(bills)
+        if i == 6:
+            final_puzzle = FinalPage(answer=answers[5], title="Puzzle 6", master=root )
+            pages.append(final_puzzle)
+        pages.append(answer_page)
 
 
-#     page1.mainloop()
 
-#     msg = open("puzzle6.txt").read()
-#     page = TextPage(text= msg, title= ("Puzzle %i" % (6)), master=root)
-#     page.mainloop()
-#     page1 = FinalPage(answer=answers[5], title = ("Puzzle %i" % (6)), master=root)
-#     page1.mainloop()
-#     page = TextPage(text="You have solved the puzzle", title='Done', final=True, master=root)
-#     page.mainloop()
+
+    final_page = TextPage(text= "Done", final=True, title= "Complete", master=root)
+    pages.append(final_page)
+
+    length = len(pages)
+    for i in range(length):
+        if i != 0:
+            pages[i].set_previous(pages[i-1])
+        if i < length - 1:
+            pages[i].set_next(pages[i+1])
+
+    pages[0].create_widgets()
+    pages[0].mainloop()
+
