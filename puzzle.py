@@ -8,7 +8,7 @@ from bills import BillsPage
 
 
 if __name__ == "__main__":
-    answers = ["Golden",
+    answers = ["Sudden",
                "Cloak",
                "Relax",
                "Blast" ,
