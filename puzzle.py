@@ -29,10 +29,10 @@ if __name__ == "__main__":
     for i in range(1,8):
         if i == 4:
             for j in range(1,4):
-                msg = open("story%i.txt" % j).read().strip()
+                msg = open("/home/pi/Puzzle/story%i.txt" % j).read().strip()
                 page = TextPage(text= msg, title= "Story", master=root)
                 pages.append(page)
-        msg = open("puzzle%i.txt" % i).read().strip()
+        msg = open("/home/pi/Puzzle/puzzle%i.txt" % i).read().strip()
         page = TextPage(text= msg, title= "Puzzle %i" % i, master=root)
         answer_page = AnswerPage(answer=answers[i-1], title = "Puzzle %i" % i, master=root)
 
